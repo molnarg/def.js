@@ -6,19 +6,36 @@ Possible use-cases include function contracts, advanced event handling and
 
 Examples
 ========
-```javascript
-var def = require('def'), set = require('set');
+Simple function contract:
 
-// Simple function contract
+```javascript
+var def = require('def')
+  , set = require('set');
+
 var parity = String.def(Number, function(value) {
   return (value % 2 === 0) ? 'even' : 'odd';
 })
 
-// Function contract with function overloading
+parity(1);  // odd
+parity(2);  // even
+parity('x') // throws ContractViolationException
+```
+
+Function contract with function overloading:
+
+```javascript
 var fibonacci = Number.def(set(0,1), function(n) { return 1; })
                       .def(Number,   function(n) { return fibonacci(n-1) + fibonacci(n-2); });
 
-// Function overloading with filter for the value of this
+fibonacci(0); // 1
+fibonacci(1); // 1
+fibonacci(2); // 2
+fibonacci(3); // 3
+```
+
+Function overloading with filter for the value of this:
+
+```javascript
 var print = def.call(42,     function() { console.log('Answer to the Ultimate Question of ' +
                                                       'Life, the Universe, and Everything'); }
            .def.call(Number, function() { console.log('Number: ', this); })
@@ -28,10 +45,11 @@ print.call(42);   // Answer to the Ultimate Question of Life, the Universe, and 
                   // Number: 42
 print.call(5);    // Number: 5
 print.call('MG'); // String: MG
+```
 
-// Filter for the value of this, alternative syntax:
-// on   === .def.call
-// emit === .call
+Filter for the value of this, alternative syntax (`on   === .def.call`, `emit === .call`):
+
+```javascript
 var ee = def()
 
 ee.on('eventname1', function(x) { console.log('Handler1 -- event:', this, ', parameter:', x); });
