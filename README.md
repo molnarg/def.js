@@ -54,9 +54,14 @@ var ee = def()
 
 ee.on('eventname1', function(x) { console.log('Handler1 -- event:', this, ', parameter:', x); });
 ee.on('eventname2', function(x) { console.log('Handler2 -- event:', this, ', parameter:', x); })
+ee.on(String,       function(x) { console.log('Handler3 -- this is a string type event.'); })
+ee.on({x:3},        function(x) { console.log('Handler4 -- Object type event with x = 3.'); })
 
-ee.emit('eventname1', 1) // Handler 1 -- event: eventname1, parameter: 1
-ee.emit('eventname2', 2) // Handler 2 -- event: eventname2, parameter: 2
+ee.emit('eventname1', 1) // Handler1 -- event: eventname1, parameter: 1
+                         // Handler3 -- this is a string type event.
+ee.emit('eventname2', 2) // Handler2 -- event: eventname2, parameter: 2
+                         // Handler3 -- this is a string type event.
+ee.emit({x:3, y:4})      // Handler4 -- Object type event with x = 3.
 ```
 
 License
