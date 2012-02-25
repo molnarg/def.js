@@ -47,7 +47,7 @@ print.call(5);    // Number: 5
 print.call('MG'); // String: MG
 ```
 
-Filter for the value of this, alternative syntax (`on   === .def.call`, `emit === .call`):
+Filter for the value of this, alternative syntax (`.on   === .def.call`, `.emit === .call`):
 
 ```javascript
 var ee = def()
