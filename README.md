@@ -9,8 +9,8 @@ Examples
 Simple function contract:
 
 ```javascript
-var def = require('def')
-  , set = require('set');
+var def = require('def.js')
+  , set = require('set.js');
 
 var parity = String.def(Number, function(value) {
   return (value % 2 === 0) ? 'even' : 'odd';
