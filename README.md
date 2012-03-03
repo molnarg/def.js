@@ -10,8 +10,7 @@ Examples
 Function overloading:
 
 ```javascript
-var def = require('def.js')
-  , set = require('set.js');
+var def = require('def.js');
 
 var fibonacci = def(Number.max(1)  , function(n) { return 1; })
                .def(Number.above(1), function(n) { return fibonacci(n-1) + fibonacci(n-2); });
