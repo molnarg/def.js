@@ -1,31 +1,20 @@
 def.js
 ======
-A message passing library inspired by EventEmitter2 and contracts.coffee.
-Possible use-cases include function contracts, advanced event handling and
+A message passing library inspired by EventEmitter2 and
 [multiple-dispatch function overloading](http://en.wikipedia.org/wiki/Multiple_dispatch)
+libraries.
 
 Examples
 ========
-Simple function contract:
+
+Function overloading:
 
 ```javascript
 var def = require('def.js')
   , set = require('set.js');
 
-var parity = String.def(Number, function(value) {
-  return (value % 2 === 0) ? 'even' : 'odd';
-})
-
-parity(1);  // odd
-parity(2);  // even
-parity('x') // throws ContractViolationException
-```
-
-Function contract with function overloading:
-
-```javascript
-var fibonacci = Number.def(set(0,1), function(n) { return 1; })
-                      .def(Number,   function(n) { return fibonacci(n-1) + fibonacci(n-2); });
+var fibonacci = def(Number.max(1)  , function(n) { return 1; })
+               .def(Number.above(1), function(n) { return fibonacci(n-1) + fibonacci(n-2); });
 
 fibonacci(0); // 1
 fibonacci(1); // 1
@@ -36,13 +25,12 @@ fibonacci(3); // 3
 Function overloading with filter for the value of this:
 
 ```javascript
-var print = def.call(42,     function() { console.log('Answer to the Ultimate Question of ' +
-                                                      'Life, the Universe, and Everything'); }
-           .def.call(Number, function() { console.log('Number: ', this); })
-           .def.call(String, function() { console.log('String: ', this); })
+var print = def.call(42,     function() { return 'Answer to the Ultimate Question of ' +
+                                                 'Life, the Universe, and Everything'; })
+           .def.call(Number, function() { return 'Number: ' + this; })
+           .def.call(String, function() { return 'String: ' + this; })
 
 print.call(42);   // Answer to the Ultimate Question of Life, the Universe, and Everything
-                  // Number: 42
 print.call(5);    // Number: 5
 print.call('MG'); // String: MG
 ```
@@ -64,8 +52,35 @@ ee.emit('eventname2', 2) // Handler2 -- event: eventname2, parameter: 2
 ee.emit({x:3, y:4})      // Handler4 -- Object type event with x = 3.
 ```
 
+Usage
+=====
+
+The function returned by the first call to `def` is a message dispatcher.
+Messages can be sent by calling this function, and messages consist of the
+`arguments` array and the value of `this` if `this` is not the global object.
+
+Message listeners can be registered by using the `def` method of the
+dispatcher. When calling the `def` method, the last parameter is the actual
+listener function and the other parameters (and the value of `this`) are
+the message filters. The set.js library is used to create the filters, so the
+syntax for creating filters is identical to the syntax used in set.js to create
+sets.
+
+When there's an incoming message (e.g. calling the dispatcher as a function),
+the dispatcher examines the registered filters and calls the listener functions
+associated with matching filters with arguments and `this` defined by the
+message. The listener functions are called in the order of registration. The
+return value is the first non-undefined value returned by the called listener
+functions.
+
+Calling `.on(...args)` and `.emit(...args)` are equivalent to using
+`.def.call(...args)` and `.call(...args)`. This ensures the compatibility with
+other message passing libraries.
+
 License
 =======
+The MIT License
+
 Copyright (C) 2012 Gábor Molnár
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
