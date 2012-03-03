@@ -40,8 +40,8 @@ Filter for the value of this, alternative syntax (`.on   === .def.call`, `.emit 
 ```javascript
 var ee = def()
 
-ee.on('eventname1', function(x) { console.log('Handler1 -- event:', this, ', parameter:', x); });
-ee.on('eventname2', function(x) { console.log('Handler2 -- event:', this, ', parameter:', x); })
+ee.on('eventname1', function(x) { console.log('Handler1 -- event:' + this + ', parameter:', x); });
+ee.on('eventname2', function(x) { console.log('Handler2 -- event:' + this + ', parameter:', x); })
 ee.on(String,       function(x) { console.log('Handler3 -- this is a string type event.'); })
 ee.on({x:3},        function(x) { console.log('Handler4 -- Object type event with x = 3.'); })
 
@@ -71,7 +71,8 @@ the dispatcher examines the registered filters and calls the listener functions
 associated with matching filters with arguments and `this` defined by the
 message. The listener functions are called in the order of registration. The
 return value is the first non-undefined value returned by the called listener
-functions.
+functions (and undefined if there's no matching listener or none of the matching
+listeners return non-undefined values).
 
 Calling `.on(...args)` and `.emit(...args)` are equivalent to using
 `.def.call(...args)` and `.call(...args)`. This ensures the compatibility with
