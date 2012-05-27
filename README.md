@@ -86,6 +86,13 @@ print.call(1, 'an important number'); // Number: 1 (an important number)
 print.call('a', 'the first letter');  // String: ` (the first letter)
 ```
 
+Installation
+============
+
+Using [npm](http://npmjs.org):
+
+    npm install def.js
+
 License
 =======
 
