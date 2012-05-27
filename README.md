@@ -76,7 +76,7 @@ Filter for `this`
 -----------------
 
 The filter for `this` is also part of the function signature. To define a filter for the value
-of `this`, use `def.call`.
+of `this`, use `def.call` or `def.apply`.
 
 ```javascript
 print = def.call(Number, function(comment) { console.log('Number: ' + this + ' (' + comment + ')'); })
