@@ -59,6 +59,9 @@ f = def(Number, String        , function(n, s) { console.log(n, s); })
    .def(42    , /The Answer.*/, function(n, s) { console.log('The answer is: ' + s); });
 ```
 
+Function call order
+-------------------
+
 The most generic implementation must come first, then the special cases. It is explained
 by the way def.js executes the implementation functions. It goes like this:
 
@@ -68,6 +71,20 @@ by the way def.js executes the implementation functions. It goes like this:
   * Execute the implementation function with the given `arguments` and `this`
   * If the return value `ret` is not `undefined` then stop executing and return `ret`
 4. Go to step 1 if there are unchecked implementations left
+
+Filter for `this`
+-----------------
+
+The filter for `this` is also part of the function signature. To define a filter for the value
+of `this`, use `def.call`.
+
+```javascript
+print = def.call(Number, function(comment) { console.log('Number: ' + this + ' (' + comment + ')'); })
+       .def.call(String, function(comment) { console.log('String: ' + this + ' (' + comment + ')'); });
+
+print.call(1, 'an important number'); // Number: 1 (an important number)
+print.call('a', 'the first letter');  // String: ` (the first letter)
+```
 
 License
 =======
