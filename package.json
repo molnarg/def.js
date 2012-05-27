@@ -1,0 +1,22 @@
+{
+  "author": "Gábor Molnár <gabor.molnar@sch.bme.hu>",
+  "name": "def.js",
+  "description": "A multiple-dispatch function overloading library.",
+  "keywords": [
+    "function overloading",
+    "multiple dispatch",
+    "schema"
+  ],
+  "version": "0.1.0",
+  "homepage": "https://github.com/molnarg/def.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/molnarg/def.js.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "main": "./index.js"
+}
