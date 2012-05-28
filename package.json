@@ -20,5 +20,5 @@
   "engines": {
     "node": "*"
   },
-  "main": "./index.js"
+  "main": "./def.js"
 }
