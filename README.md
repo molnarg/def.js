@@ -83,7 +83,7 @@ print = def.call(Number, function(comment) { console.log('Number: ' + this + ' (
        .def.call(String, function(comment) { console.log('String: ' + this + ' (' + comment + ')'); });
 
 print.call(1, 'an important number'); // Number: 1 (an important number)
-print.call('a', 'the first letter');  // String: ` (the first letter)
+print.call('a', 'the first letter');  // String: a (the first letter)
 ```
 
 Installation
