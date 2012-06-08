@@ -51,7 +51,7 @@ var def = function() {
 
   fn.defs = []
   
-  if (arguments.length !== 0) fn.def.apply(this, arguments)
+  if (arguments.length !== 0) fn.def.apply(fn, arguments)
 
   return fn
 }
