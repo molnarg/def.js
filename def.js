@@ -51,6 +51,8 @@ var def = function() {
 
   fn.defs = []
   
+  if (Object.defineProperty) Object.defineProperty(fn, 'defs', {enumerable : false})
+  
   if (arguments.length !== 0) fn.def.apply(fn, arguments)
 
   return fn
