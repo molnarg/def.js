@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/molnarg/def.js.png)](http://travis-ci.org/molnarg/def.js)
 def.js
 ======
 A [multiple-dispatch function overloading](http://en.wikipedia.org/wiki/Multiple_dispatch)
